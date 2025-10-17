@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Para Alice ❤</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background: #ffe6f2;
+            font-family: 'Arial', sans-serif;
+            overflow: hidden;
+        }
+
+        .container {
+            text-align: center;
+            position: relative;
+        }
+
+        .heart {
+            position: relative;
+            width: 100px;
+            height: 90px;
+            animation: heartbeat 1.2s infinite;
+            margin: 0 auto;
+        }
+
+        .heart:before,
+        .heart:after {
+            position: absolute;
+            content: "";
+            left: 50px;
+            top: 0;
+            width: 50px;
+            height: 80px;
+            background: #ff4d6d;
+            border-radius: 50px 50px 0 0;
+            transform: rotate(-45deg);
+            transform-origin: 0 100%;
+        }
+
+        .heart:after {
+            left: 0;
+            transform: rotate(45deg);
+            transform-origin: 100% 100%;
+        }
+
+        @keyframes heartbeat {
+            0% { transform: scale(1); }
+            25% { transform: scale(1.1); }
+            50% { transform: scale(1); }
+            75% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+
+        .message {
+            margin-top: 30px;
+            color: #c9184a;
+            font-size: 24px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+            opacity: 0;
+            animation: fadeIn 2s forwards 1s;
+        }
+
+        .hearts {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+        }
+
+        .hearts span {
+            position: absolute;
+            display: block;
+            font-size: 20px;
+            color: #ff4d6d;
+            animation: float 6s linear infinite;
+            opacity: 0;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes float {
+            0% {
+                transform: translateY(100vh) rotate(0deg);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-100vh) rotate(360deg);
+                opacity: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="heart"></div>
+        <div class="message" id="message">Alice, meu amor por você é eterno! ❤</div>
+        <div class="hearts" id="hearts"></div>
+    </div>
+
+    <script>
+        // Criar corações flutuantes
+        function createHearts() {
+            const heartsContainer = document.getElementById('hearts');
+            for (let i = 0; i < 15; i++) {
+                const heart = document.createElement('span');
+                heart.innerHTML = '❤';
+                heart.style.left = Math.random() * 100 + 'vw';
+                heart.style.animationDelay = Math.random() * 6 + 's';
+                heartsContainer.appendChild(heart);
+            }
+        }
+
+        // Array de mensagens românticas
+        const messages = [
+            "Alice, você é o amor da minha vida!",
+            "Cada momento contigo é especial",
+            "Seu sorriso ilumina meus dias",
+            "Eu te amo mais a cada dia",
+            "Você é minha pessoa favorita",
+            "Nossas almas foram feitas para estar juntas",
+            "Meu coração bate mais forte por você"
+        ];
+
+        // Alternar mensagens
+        let currentMessage = 0;
+        const messageElement = document.getElementById('message');
+        
+        setInterval(() => {
+            currentMessage = (currentMessage + 1) % messages.length;
+            messageElement.style.opacity = 0;
+            
+            setTimeout(() => {
+                messageElement.textContent = messages[currentMessage];
+                messageElement.style.opacity = 1;
+            }, 1000);
+        }, 4000);
+
+        createHearts();
+    </script>
+</body>
+</html>
